@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Commencement 27 Live Countdown</title>
+<style>
+:root{
+  --green:#046A38;
+  --gold:#C99700;
+  --black:#101820;
+  --black-top:#1b252d;
+  --black-bottom:#0c1318;
+  --white:#f7f7f2;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:transparent}
+body{font-family:Arial,Helvetica,sans-serif;line-height:1;display:block;height:max-content}
+
+.banner{
+  width:100%;
+  max-width:2048px;
+  margin:0 auto;
+  box-sizing:border-box;
+  padding:0 64px 18px;
+  background:var(--green);
+  color:white;
+  overflow:hidden;
+  margin-bottom:0;
+}
+
+.logo-wrap{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin:-22px 0 0;
+}
+.logo-wrap img{
+  display:block;
+  width:min(1320px,66%);
+  height:auto;
+}
+
+.countdown{
+  display:grid;
+  margin-top:-18px;
+  grid-template-columns:1.18fr .92fr .92fr .92fr;
+  gap:clamp(54px,5vw,118px);
+  align-items:start;
+}
+.unit{text-align:center}
+
+.digits{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+}
+
+.flip-card{
+  position:relative;
+  width:clamp(92px,7.75vw,160px);
+  height:clamp(118px,10vw,205px);
+  perspective:1400px;
+  filter:drop-shadow(0 8px 10px rgba(0,0,0,.30));
+}
+
+.card-half,
+.flip-half{
+  position:absolute;
+  left:0;
+  width:100%;
+  height:50%;
+  overflow:hidden;
+  backface-visibility:hidden;
+  color:var(--white);
+  background:var(--black);
+}
+
+.card-half.top,
+.flip-half.top{
+  top:0;
+  border-radius:10px 10px 2px 2px;
+  background:linear-gradient(180deg,var(--black-top),var(--black));
+  border-bottom:1px solid #05090c;
+}
+
+.card-half.bottom,
+.flip-half.bottom{
+  bottom:0;
+  border-radius:2px 2px 10px 10px;
+  background:linear-gradient(180deg,var(--black),var(--black-bottom));
+  border-top:1px solid rgba(255,255,255,.03);
+}
+
+.card-half span,
+.flip-half span{
+  position:absolute;
+  left:0;
+  width:100%;
+  height:200%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:"Arial Narrow",Arial,Helvetica,sans-serif;
+  font-size:clamp(82px,8.2vw,150px);
+  font-weight:800;
+  line-height:1;
+  letter-spacing:-.04em;
+  font-variant-numeric:tabular-nums;
+  text-shadow:0 2px 0 #000;
+}
+
+.top span{top:0}
+.bottom span{bottom:0}
+
+.flip-half.top{
+  z-index:6;
+  transform-origin:bottom;
+}
+.flip-half.bottom{
+  z-index:5;
+  transform-origin:top;
+  transform:rotateX(90deg);
+}
+
+.flip-card.flipping .flip-half.top{
+  animation:flipTop .28s cubic-bezier(.55,.05,.85,.35) forwards;
+}
+.flip-card.flipping .flip-half.bottom{
+  animation:flipBottom .28s .28s cubic-bezier(.15,.45,.25,1) forwards;
+}
+
+@keyframes flipTop{
+  0%{transform:rotateX(0deg);filter:brightness(1)}
+  100%{transform:rotateX(-90deg);filter:brightness(.62)}
+}
+@keyframes flipBottom{
+  0%{transform:rotateX(90deg);filter:brightness(.62)}
+  100%{transform:rotateX(0deg);filter:brightness(1)}
+}
+
+.seam{
+  position:absolute;
+  left:0;right:0;top:50%;
+  height:2px;
+  transform:translateY(-1px);
+  background:#06090b;
+  box-shadow:0 1px 0 rgba(255,255,255,.05);
+  z-index:10;
+  pointer-events:none;
+}
+
+.label{
+  margin-top:14px;
+  font-size:clamp(18px,1.65vw,34px);
+  font-weight:800;
+  letter-spacing:.18em;
+  color:#fff;
+}
+
+.date-row{
+  display:flex;
+  align-items:center;
+  gap:28px;
+  margin-top:18px;
+}
+.rule{
+  flex:1;
+  height:5px;
+  background:var(--gold);
+}
+.date{
+  flex:0 0 auto;
+  margin-bottom:0;
+  white-space:nowrap;
+  font-size:clamp(28px,3vw,58px);
+  line-height:1;
+  font-weight:800;
+  letter-spacing:.015em;
+  color:white;
+}
+
+.sr-only{
+  position:absolute!important;
+  width:1px!important;height:1px!important;
+  padding:0!important;margin:-1px!important;
+  overflow:hidden!important;clip:rect(0,0,0,0)!important;
+  white-space:nowrap!important;border:0!important;
+}
+
+@media(max-width:1100px){
+  .banner{padding:0 38px 14px}
+  .countdown{gap:34px}
+  .digits{gap:8px}
+  .date-row{margin-top:16px;gap:18px}
+}
+@media(max-width:760px){
+  .logo-wrap{margin-top:-14px}
+  .banner{padding:0 14px 12px}
+  .logo-wrap img{width:min(700px,68%)}
+  .countdown{gap:12px}
+  .digits{gap:5px}
+  .label{font-size:12px;letter-spacing:.12em}
+  .date-row{margin-top:14px}
+}
+@media(max-width:560px){
+  .countdown{grid-template-columns:repeat(2,1fr);gap:18px 24px}
+  .logo-wrap img{width:min(520px,86%)}
+  .rule{display:none}
+  .date-row{justify-content:center}
+  .date{white-space:normal;text-align:center}
+}
+</style>
+</head>
+<body>
+<section class="banner">
+  <div class="logo-wrap">
+    <img src="data:image/png;base64,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" alt="Commencement 27">
+  </div>
+
+  <div class="countdown" aria-hidden="true">
+    <div class="unit"><div class="digits" id="days"></div><div class="label">DAYS</div></div>
+    <div class="unit"><div class="digits" id="hours"></div><div class="label">HOURS</div></div>
+    <div class="unit"><div class="digits" id="minutes"></div><div class="label">MINUTES</div></div>
+    <div class="unit"><div class="digits" id="seconds"></div><div class="label">SECONDS</div></div>
+  </div>
+
+  <div class="date-row">
+    <span class="rule"></span>
+    <div class="date" id="dateLine">MAY 15, 2027 • 11:00 AM</div>
+    <span class="rule"></span>
+  </div>
+
+  <div class="sr-only" id="srStatus" role="timer" aria-live="polite"></div>
+</section>
+
+<script>
+const target = new Date("2027-05-15T11:00:00-04:00").getTime();
+const widths = {days:3,hours:2,minutes:2,seconds:2};
+const groups = {};
+
+function createCard(initial){
+  const card = document.createElement("div");
+  card.className = "flip-card";
+  card.dataset.value = initial;
+  card.innerHTML = `
+    <div class="card-half top static-top"><span>${initial}</span></div>
+    <div class="card-half bottom static-bottom"><span>${initial}</span></div>
+    <div class="flip-half top flip-top"><span>${initial}</span></div>
+    <div class="flip-half bottom flip-bottom"><span>${initial}</span></div>
+    <div class="seam"></div>`;
+  return card;
+}
+
+for(const [name,width] of Object.entries(widths)){
+  const host = document.getElementById(name);
+  groups[name] = [];
+  for(let i=0;i<width;i++){
+    const card = createCard("0");
+    host.appendChild(card);
+    groups[name].push(card);
+  }
+}
+
+function snap(card,value){
+  card.dataset.value = value;
+  card.querySelectorAll("span").forEach(s=>s.textContent=value);
+}
+
+function flip(card,next){
+  const current = card.dataset.value;
+  if(current === next) return;
+
+  const staticTop = card.querySelector(".static-top span");
+  const staticBottom = card.querySelector(".static-bottom span");
+  const flipTop = card.querySelector(".flip-top span");
+  const flipBottom = card.querySelector(".flip-bottom span");
+
+  staticTop.textContent = next;
+  staticBottom.textContent = current;
+  flipTop.textContent = current;
+  flipBottom.textContent = next;
+
+  card.classList.remove("flipping");
+  void card.offsetWidth;
+  card.classList.add("flipping");
+
+  setTimeout(()=>{ staticBottom.textContent = next; }, 280);
+
+  setTimeout(()=>{
+    card.classList.remove("flipping");
+    snap(card,next);
+  }, 590);
+}
+
+function remaining(){
+  let diff = Math.max(0,target-Date.now());
+  const days = Math.floor(diff/86400000); diff %= 86400000;
+  const hours = Math.floor(diff/3600000); diff %= 3600000;
+  const minutes = Math.floor(diff/60000); diff %= 60000;
+  const seconds = Math.floor(diff/1000);
+
+  return {
+    days:String(days).padStart(3,"0"),
+    hours:String(hours).padStart(2,"0"),
+    minutes:String(minutes).padStart(2,"0"),
+    seconds:String(seconds).padStart(2,"0")
+  };
+}
+
+function render(initial=false){
+  const vals = remaining();
+
+  for(const [name,str] of Object.entries(vals)){
+    groups[name].forEach((card,i)=>initial ? snap(card,str[i]) : flip(card,str[i]));
+  }
+
+  const sr = document.getElementById("srStatus");
+  if(Date.now() >= target){
+    document.getElementById("dateLine").textContent = "COMMENCEMENT DAY IS HERE";
+    sr.textContent = "Commencement Day is here.";
+  } else {
+    const key = vals.days+"-"+vals.hours+"-"+vals.minutes;
+    if(sr.dataset.key !== key){
+      sr.dataset.key = key;
+      sr.textContent =
+        `${parseInt(vals.days)} days, ${parseInt(vals.hours)} hours, ` +
+        `${parseInt(vals.minutes)} minutes until Commencement on May 15, 2027 at 11:00 AM.`;
+    }
+  }
+}
+
+render(true);
+setInterval(()=>render(false),1000);
+</script>
+</body>
+</html>
