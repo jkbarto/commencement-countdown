@@ -227,7 +227,7 @@ body{font-family:Arial,Helvetica,sans-serif;line-height:1;display:block;height:m
 
   <div class="date-row">
     <span class="rule"></span>
-    <div class="date" id="dateLine">MAY 18, 2027 • 11:00 AM</div>
+    <div class="date" id="dateLine">MAY 17, 2027 • 11:00 AM</div>
     <span class="rule"></span>
   </div>
 
@@ -235,7 +235,7 @@ body{font-family:Arial,Helvetica,sans-serif;line-height:1;display:block;height:m
 </section>
 
 <script>
-const target = new Date("2027-05-18T11:00:00-04:00").getTime();
+const target = new Date("2027-05-17T11:00:00-04:00").getTime();
 const widths = {days:3,hours:2,minutes:2,seconds:2};
 const groups = {};
 
@@ -325,7 +325,7 @@ function render(initial=false){
       sr.dataset.key = key;
       sr.textContent =
         `${parseInt(vals.days)} days, ${parseInt(vals.hours)} hours, ` +
-        `${parseInt(vals.minutes)} minutes until Commencement on May 18, 2027 at 11:00 AM.`;
+        `${parseInt(vals.minutes)} minutes until Commencement on May 17, 2027 at 11:00 AM.`;
     }
   }
 }
